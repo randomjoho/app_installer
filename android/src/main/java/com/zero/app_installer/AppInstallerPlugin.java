@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import androidx.core.content.FileProvider;
-import android.text.TextUtils;
+import android.text.TextUtils; 
 import android.widget.Toast;
 
 import java.io.File;
@@ -110,14 +110,20 @@ public class AppInstallerPlugin implements MethodChannel.MethodCallHandler, Plug
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Uri contentUri = FileProvider.getUriForFile(mRegistrar.activeContext(),
             mRegistrar.context().getPackageName() + ".fileProvider", apkFile);
-        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        intent.setDataAndType(contentUri, "application/vnd.android.package-archive"); 
       } else {
-        intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive"); 
       }
       mRegistrar.activity().startActivity(intent);
-      result.success(true);
+      if (result!=null){
+        result.success(true);
+      }
+
     } else {
-      result.success(false);
+      if (result!=null){
+        result.success(false);
+      }
+
     }
     this.apkFile = null;
     this.result = null;
